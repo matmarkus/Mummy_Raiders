@@ -6,7 +6,7 @@ def menu():
     while True:
         print(
         "Welcome to our game. Write down: \n >>1 to start the game \n >>2 to read FAQ \n >>3 to see scoretable \n >>4 to exit game")
-        choice_1 = input("What do you choose?")
+        choice_1 = input("What do you choose? ")
         if choice_1 == "4":
             from ASCII import chicken
             print("Pity..")
@@ -35,3 +35,5 @@ from Characters import Merchant
 print(Character.get_description(Archaeologist))
 print("<-----><-----><----->")
 print(Character.get_description(Merchant))
+
+choice_2 = input("Which character do you choose? For Archeologist write down 'A'. For Merchant write down 'M' :")
