@@ -1,6 +1,5 @@
 from ASCII import logo
 from helpers import background_story
-from Characters import Archeologist
 
 print(logo)
 def menu():
@@ -26,4 +25,13 @@ def menu():
 menu()
 
 background_story()
-print(Archeologist.description)
+
+print("Choose your role:")
+
+from Characters import Character
+from Characters import Archaeologist
+from Characters import Merchant
+
+print(Character.get_description(Archaeologist))
+print("<-----><-----><----->")
+print(Character.get_description(Merchant))
