@@ -16,3 +16,38 @@ def background_story():
     print(pyramides)
     print(game_background)
 
+def next_step():
+    next_step_description = """
+    The sun rises on the Nile. Another busy day ahead of you. You look around the area and start looking for where you can stick a shovel today.
+Your next step:
+1. You start searching the location and rely on intuition. (May take from 1 to 4 hours).
+2. You use a map you bought from a mysterious merchant at a market in Cairo. (It will take 2 hours)
+    """
+    print(next_step_description)
+
+def choosing_difficulty():
+    difficulty = input("""
+    Now it's time to choose your difficulty level:
+    >Easy (type in 'E')
+    >Medium (type in 'M')
+    >Hard (type in 'H')
+     -->    
+    """)
+    if difficulty == 'E':
+        print("<-----><-----><----->")
+        print("You will play on Easy settings!")
+        with open("chosen_difficulty.txt", "w") as file:
+            file.write("E")
+    elif difficulty == 'M':
+        print("<-----><-----><----->")
+        print("You will play on Medium settings!")
+        with open("chosen_class.txt", "w") as file:
+            file.write("M")
+    elif difficulty == 'H':
+        print("<-----><-----><----->")
+        print("You will play on Hard settings!")
+        with open("chosen_class.txt", "w") as file:
+            file.write("H")
+
+    else:
+        print("Invalid choice. Please write down 'E', 'M' or 'H'")
