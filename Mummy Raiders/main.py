@@ -70,3 +70,4 @@ with open("chosen_class.txt", "r") as file:
 from helpers import next_step
 if walidacja == True:
     next_step()
+
