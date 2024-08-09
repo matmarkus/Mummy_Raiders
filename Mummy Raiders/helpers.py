@@ -17,6 +17,7 @@ def background_story():
     print(game_background)
 
 def next_step():
+    walidacja = False
     next_step_description = """
     The sun rises on the Nile. Another busy day ahead of you. You look around the area and start looking for where you can stick a shovel today.
 Your next step:
@@ -26,6 +27,7 @@ Your next step:
     print(next_step_description)
 
 def choosing_difficulty():
+    walidacja = False
     difficulty = input("""
     Now it's time to choose your difficulty level:
     >Easy (type in 'E')
@@ -38,16 +40,21 @@ def choosing_difficulty():
         print("You will play on Easy settings!")
         with open("chosen_difficulty.txt", "w") as file:
             file.write("E")
+        return True
     elif difficulty == 'M':
         print("<-----><-----><----->")
         print("You will play on Medium settings!")
         with open("chosen_class.txt", "w") as file:
             file.write("M")
+        return True
     elif difficulty == 'H':
         print("<-----><-----><----->")
         print("You will play on Hard settings!")
         with open("chosen_class.txt", "w") as file:
             file.write("H")
-
+        return True
     else:
         print("Invalid choice. Please write down 'E', 'M' or 'H'")
+        return False
+        return choosing_difficulty()
+

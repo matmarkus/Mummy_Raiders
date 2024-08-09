@@ -37,27 +37,36 @@ print(Character.get_description(Archaeologist))
 print("<-----><-----><----->")
 print(Character.get_description(Merchant))
 
-choice_2 = input("Which character do you choose? For Archeologist write down 'A'. For Merchant write down 'M' :")
+def choose_your_class():
+    choice_2 = input("Which character do you choose? For Archeologist write down 'A'. For Merchant write down 'M' :")
+    if choice_2 == 'A':
+        print("<-----><-----><----->")
+        print("You chose Archeologist!")
+        with open("chosen_class.txt", "w") as file:
+            file.write("A")
+        return True
+    elif choice_2 == 'M':
+        print("<-----><-----><----->")
+        print("You chose Merchant!")
+        with open("chosen_class.txt", "w") as file:
+            file.write("M")
+        return True
+    else:
+        print("Invalid choice. Please write down 'A' for Archeologist or 'M' for Merchant.")
+        return choose_your_class()
 
-if choice_2 == 'A':
-    print("<-----><-----><----->")
-    print("You chose Archeologist!")
-    with open("chosen_class.txt", "w") as file:
-        file.write("A")
-
-elif choice_2 == 'M':
-    print("<-----><-----><----->")
-    print("You chose Merchant!")
-    with open("chosen_class.txt", "w") as file:
-        file.write("M")
-
-else:
-    print("Invalid choice. Please write down 'A' for Archeologist or 'M' for Merchant.")
+walidacja = choose_your_class()
 
 from helpers import choosing_difficulty
-choosing_difficulty()
+if walidacja == True:
+    choosing_difficulty()
+
+walidacja = choosing_difficulty()
+#TODO doubling output
 
 with open("chosen_class.txt", "r") as file:
     chosen_hero = file.read().strip()
+
 from helpers import next_step
-next_step()
+if walidacja == True:
+    next_step()
