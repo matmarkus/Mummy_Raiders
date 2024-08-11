@@ -1,6 +1,18 @@
 from ASCII import logo
 from helpers import background_story
 import os
+import random
+from Locations import locations
+import json
+
+def reset_locations(locations):
+    for location in locations:
+        location["Used"] = False
+
+reset_locations(locations)
+
+#TODO saving as unused
+
 
 print(logo)
 def menu():
@@ -71,3 +83,22 @@ from helpers import next_step
 if walidacja == True:
     next_step()
 
+#TODO input for next step
+
+def get_random_location(locations):
+    unused_locations = [location for location in locations if not location["Used"]]
+    if not unused_locations:
+        return None
+    selected_location = random.choice(unused_locations)
+    selected_location["Used"] = True
+    return selected_location
+
+random_location = get_random_location(locations)
+
+#TODO saving as used
+
+if random_location:
+    print(f"Your location: {random_location['Name']}")
+    print(f"Description: {random_location['Description']}")
+else:
+    print("ERROR ERROR ERROR!")
