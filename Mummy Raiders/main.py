@@ -3,7 +3,6 @@ from helpers import background_story
 import os
 import random
 from Locations import locations
-import json
 
 def reset_locations(locations):
     for location in locations:

@@ -4,7 +4,7 @@ locations = [
         "Name": "Ancient Temple",
         "Description": "A sunken temple full of puzzles and traps.",
         "Excavation Time (hours)": 6,
-        "Used": True
+        "Used": False
     },
     {
         "ID": 2,

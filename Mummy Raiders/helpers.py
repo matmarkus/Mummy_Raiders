@@ -25,6 +25,13 @@ Your next step:
 2. You use a map you bought from a mysterious merchant at a market in Cairo. (It will take 2 hours)
     """
     print(next_step_description)
+    next_step_decision = input("So what do you choose? Option 1 or 2? ")
+    if next_step_decision == "1":
+        #TODO
+    elif next_step_decision == "2":
+        #TODO
+    else print("Invalid choice. Please write down '1'or '2'")
+        return next_step_decision
 
 def choosing_difficulty():
     walidacja = False
@@ -57,4 +64,6 @@ def choosing_difficulty():
         print("Invalid choice. Please write down 'E', 'M' or 'H'")
         return False
         return choosing_difficulty()
+
+
 
