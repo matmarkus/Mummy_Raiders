@@ -4,7 +4,12 @@ import os
 import random
 from Locations import locations
 
+TIME = 0.0
+MONEY = 0
+
+
 def reset_locations(locations):
+    '''Reset param unused to False'''
     for location in locations:
         location["Used"] = False
 
@@ -15,6 +20,7 @@ reset_locations(locations)
 
 print(logo)
 def menu():
+    '''Opening menu with 4 options'''
     while True:
         print(
         "Welcome to our game. Write down: \n >>1 to start the game \n >>2 to read FAQ \n >>3 to see scoretable \n >>4 to exit game")
@@ -72,17 +78,15 @@ from helpers import choosing_difficulty
 if walidacja == True:
     choosing_difficulty()
 
-walidacja = choosing_difficulty()
-#TODO doubling output
-
 with open("chosen_class.txt", "r") as file:
     chosen_hero = file.read().strip()
 
+#TODO doubling output
+
 from helpers import next_step
+# walidacja = choosing_difficulty()
 if walidacja == True:
     next_step()
-
-#TODO input for next step
 
 def get_random_location(locations):
     unused_locations = [location for location in locations if not location["Used"]]

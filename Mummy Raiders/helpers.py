@@ -1,3 +1,4 @@
+import random
 def background_story():
     from ASCII import pyramides
     game_background = """
@@ -16,7 +17,12 @@ def background_story():
     print(pyramides)
     print(game_background)
 
+def round_to_quarter(value):
+    return round(value * 4) / 4
+
 def next_step():
+    from main import TIME
+    global TIME
     walidacja = False
     next_step_description = """
     The sun rises on the Nile. Another busy day ahead of you. You look around the area and start looking for where you can stick a shovel today.
@@ -27,11 +33,18 @@ Your next step:
     print(next_step_description)
     next_step_decision = input("So what do you choose? Option 1 or 2? ")
     if next_step_decision == "1":
-        #TODO
+        random_hours = random.randint(1, 4)  # Losujemy liczbę od 1 do 4
+        TIME += random_hours
+        TIME = round_to_quarter(TIME)
+        print(f"You relied on intuition. It took {random_hours} hours. New TIME: {TIME}")
     elif next_step_decision == "2":
-        #TODO
-    else print("Invalid choice. Please write down '1'or '2'")
+        TIME += 2  # Dodajemy 2 godziny
+        TIME = round_to_quarter(TIME)
+        print(f"You used the map. It took 2 hours. New TIME: {TIME}")
+    else:
+        print("Invalid choice. Please write down '1'or '2'")
         return next_step_decision
+    return TIME
 
 def choosing_difficulty():
     walidacja = False
@@ -47,23 +60,25 @@ def choosing_difficulty():
         print("You will play on Easy settings!")
         with open("chosen_difficulty.txt", "w") as file:
             file.write("E")
-        return True
+        walidacja = True
     elif difficulty == 'M':
         print("<-----><-----><----->")
         print("You will play on Medium settings!")
-        with open("chosen_class.txt", "w") as file:
+        with open("chosen_difficulty", "w") as file:
             file.write("M")
-        return True
+        walidacja = True
     elif difficulty == 'H':
         print("<-----><-----><----->")
         print("You will play on Hard settings!")
-        with open("chosen_class.txt", "w") as file:
+        with open("chosen_difficulty", "w") as file:
             file.write("H")
-        return True
+        walidacja = True
     else:
         print("Invalid choice. Please write down 'E', 'M' or 'H'")
-        return False
+        walidacja = False
         return choosing_difficulty()
+    return walidacja
+
 
 
 
