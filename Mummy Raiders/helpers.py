@@ -1,4 +1,7 @@
 import random
+from config import TIME
+from Locations import locations
+
 def background_story():
     from ASCII import pyramides
     game_background = """
@@ -21,64 +24,77 @@ def round_to_quarter(value):
     return round(value * 4) / 4
 
 def next_step():
-    from main import TIME
     global TIME
-    walidacja = False
-    next_step_description = """
-    The sun rises on the Nile. Another busy day ahead of you. You look around the area and start looking for where you can stick a shovel today.
-Your next step:
-1. You start searching the location and rely on intuition. (May take from 1 to 4 hours).
-2. You use a map you bought from a mysterious merchant at a market in Cairo. (It will take 2 hours)
-    """
-    print(next_step_description)
-    next_step_decision = input("So what do you choose? Option 1 or 2? ")
-    if next_step_decision == "1":
-        random_hours = random.randint(1, 4)  # Losujemy liczbę od 1 do 4
-        TIME += random_hours
-        TIME = round_to_quarter(TIME)
-        print(f"You relied on intuition. It took {random_hours} hours. New TIME: {TIME}")
-    elif next_step_decision == "2":
-        TIME += 2  # Dodajemy 2 godziny
-        TIME = round_to_quarter(TIME)
-        print(f"You used the map. It took 2 hours. New TIME: {TIME}")
-    else:
-        print("Invalid choice. Please write down '1'or '2'")
-        return next_step_decision
-    return TIME
+    while True:
+        next_step_description = """
+        The sun rises on the Nile. Another busy day ahead of you. You look around the area and start looking for where you can stick a shovel today.
+        Your next step:
+        1. You start searching the location and rely on intuition. (May take from 1 to 4 hours).
+        2. You use a map you bought from a mysterious merchant at a market in Cairo. (It will take 2 hours)
+        """
+        print(next_step_description)
+        next_step_decision = input("So what do you choose? Option 1 or 2? ")
+        if next_step_decision == "1":
+            random_hours = random.randint(1, 4)
+            TIME += random_hours
+            TIME = round_to_quarter(TIME)
+            print(f"You relied on intuition. It took {random_hours} hours. New TIME: {TIME}")
+            break
+        elif next_step_decision == "2":
+            TIME += 2
+            TIME = round_to_quarter(TIME)
+            print(f"You used the map. It took 2 hours. New TIME: {TIME}")
+            break
+        else:
+            print("Invalid choice. Please write down '1' or '2'")
 
 def choosing_difficulty():
     walidacja = False
-    difficulty = input("""
-    Now it's time to choose your difficulty level:
-    >Easy (type in 'E')
-    >Medium (type in 'M')
-    >Hard (type in 'H')
-     -->    
-    """)
-    if difficulty == 'E':
-        print("<-----><-----><----->")
-        print("You will play on Easy settings!")
-        with open("chosen_difficulty.txt", "w") as file:
-            file.write("E")
-        walidacja = True
-    elif difficulty == 'M':
-        print("<-----><-----><----->")
-        print("You will play on Medium settings!")
-        with open("chosen_difficulty", "w") as file:
-            file.write("M")
-        walidacja = True
-    elif difficulty == 'H':
-        print("<-----><-----><----->")
-        print("You will play on Hard settings!")
-        with open("chosen_difficulty", "w") as file:
-            file.write("H")
-        walidacja = True
-    else:
-        print("Invalid choice. Please write down 'E', 'M' or 'H'")
-        walidacja = False
-        return choosing_difficulty()
+    while not walidacja:
+        difficulty = input("""
+        Now it's time to choose your difficulty level:
+        >Easy (type in 'E')
+        >Medium (type in 'M')
+        >Hard (type in 'H')
+         -->
+        """).upper()
+        if difficulty == 'E':
+            print("<-----><-----><----->")
+            print("You will play on Easy settings!")
+            with open("chosen_difficulty.txt", "w") as file:
+                file.write("E")
+            walidacja = True
+        elif difficulty == 'M':
+            print("<-----><-----><----->")
+            print("You will play on Medium settings!")
+            with open("chosen_difficulty.txt", "w") as file:
+                file.write("M")
+            walidacja = True
+        elif difficulty == 'H':
+            print("<-----><-----><----->")
+            print("You will play on Hard settings!")
+            with open("chosen_difficulty.txt", "w") as file:
+                file.write("H")
+            walidacja = True
+        else:
+            print("Invalid choice. Please write down 'E', 'M' or 'H'")
+            walidacja = False
     return walidacja
 
+def get_random_location(locations):
+    unused_locations = [location for location in locations if not location["Used"]]
+    if not unused_locations:
+        return None
+    selected_location = random.choice(unused_locations)
+    selected_location["Used"] = True
+    return selected_location
 
-
-
+def random_location_output(random_location, time_per_day, TIME):
+    """gives info about new location"""
+    if random_location:
+        print(f"Your location: {random_location['Name']}.")
+        print(f"Description: {random_location['Description']}")
+        remaining_time = time_per_day - TIME
+        print(f"Your remaining time for today is {remaining_time}")
+    else:
+        print("ERROR ERROR ERROR!")
